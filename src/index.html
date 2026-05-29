@@ -10,7 +10,7 @@
         <h2>Menu</h2>
         <div id="date">
             <p>DATE</p>
-            <div class="clickable">
+            <div class="clickable" id="selected">
                 <img src="./images/today.svg" alt="today" class="icon">
                 <p>Today</p>
             </div>
@@ -22,16 +22,44 @@
         </div>
         <div id="labels">
             <p>LABEL</p>
-            <div class="clickable">
+            <div>
                 <img src="./images/add.svg" alt="add " class="icon">
                 <p>Add new label</p>
             </div>
         </div>
-        <div id="settings" class="clickable">
+        <div id="settings">
             <img src="./images/setting.svg" alt="setting" class="icon">
             <p>Setting</p>
         </div>
     </div>
-    <div id="mainContainer"></div>
+    <div id="tasksContainer">
+        <h1>Today</h1>
+        <div id="tasksList">
+            <div id="addNewTaskButton">
+                <img src="./images/add.svg" alt="add task" class="icon">
+                <p>Add new task</p>
+            </div>
+        </div>
+    </div>
+    <div id="addTaskModal" class="hidden">
+        <div class="header">
+            <h3>Add new task</h3>
+            <img src="./images/close.svg" alt="close" class="icon closeButton" data-modal-id="addTaskModal">
+        </div>
+        <form action="#">
+            <div>
+                <label for="taskName">Task Name</label>
+                <input type="text">
+            </div>
+            <div>
+                <label for="taskDescription">Task Description</label>
+                <textarea name="taskDescription" id="taskDescription" ></textarea>
+            </div>
+            <div>
+                <label for="">Labels</label>
+                <div id="labelSelectionContainer"></div>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
