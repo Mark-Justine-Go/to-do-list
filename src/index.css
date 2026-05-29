@@ -1,0 +1,73 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html{
+    width: 100%;
+    height: 100%;
+}
+
+body{
+    display: flex;
+    padding: 20px;
+}
+
+.icon{
+    width: 20px;
+    height: 20px;
+}
+
+#menu{
+    width: 300px;
+    background-color: #f4f4f4;
+    border-radius: 20px;
+    padding: 20px;
+    color: #5d5e5d;
+    display: flex;
+    flex-direction: column;
+}
+
+#menu p,
+#menu label{
+    font-size: 15px;
+}
+
+#date,
+#labels{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+#date > p:first-child,
+#labels > p:first-child{
+    margin-bottom: 10px;
+}
+
+#date > div,
+#labels > div{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 3px;
+}
+
+#date > div:hover,
+#labels > div:hover{
+    cursor: pointer;
+}
+
+#settings{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: auto;
+}
+
+#selected{
+    background-color: #eceaea;
+    color: black;
+    border-radius: 3px;
+}
