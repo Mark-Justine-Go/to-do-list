@@ -22,7 +22,7 @@
         </div>
         <div id="labels">
             <p>LABEL</p>
-            <div>
+            <div id="addNewLabelButton">
                 <img src="./images/add.svg" alt="add " class="icon">
                 <p>Add new label</p>
             </div>
@@ -58,6 +58,28 @@
             <div>
                 <label for="">Labels</label>
                 <div id="labelSelectionContainer"></div>
+            </div>
+            <div class="confirmButton">
+                <button>Confirm</button>
+            </div>
+        </form>
+    </div>
+    <div id="addLabelModal" class="hidden">
+        <div class="header">
+            <h3>Add new label</h3>
+            <img src="./images/close.svg" alt="close" class="icon closeButton" data-modal-id="addLabelModal">
+        </div>
+        <form action="#">
+            <div>
+                <label for="labelName">Label Name</label>
+                <input type="text" id="labelName">
+            </div>
+            <div>
+                <label for="labelColor">Label Color</label>
+                <input type="color" name="labelColor" id="labelColor">
+            </div>
+            <div class="confirmButton">
+                <button>Confirm</button>
             </div>
         </form>
     </div>

@@ -4,9 +4,9 @@ function removeID(identifier){
     element.removeAttribute("id");
 }
 
-function showAddNewTaskModal(){
-    const addNewTaskModal = document.querySelector("#addTaskModal");
-    addNewTaskModal.classList.toggle("hidden");
+function showModal(identifier){
+    const modal = document.querySelector(identifier);
+    modal.classList.toggle("hidden");
 }
 
 function closeModal(e){
@@ -19,4 +19,4 @@ function selectionFeedback(e,attribute,identifier){
     e.currentTarget.setAttribute(attribute, identifier);
 }
 
-export {selectionFeedback, showAddNewTaskModal, closeModal}
+export {selectionFeedback, showModal, closeModal}
