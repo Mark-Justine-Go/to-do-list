@@ -33,7 +33,7 @@
         </div>
     </div>
     <div id="tasksContainer">
-        <h1>Today</h1>
+        <h1 id="currentDate">Today</h1>
         <div id="tasksList">
             <div id="addNewTaskButton">
                 <img src="./images/add.svg" alt="add task" class="icon">
@@ -48,21 +48,21 @@
             <h3>Add new task</h3>
             <img src="./images/close.svg" alt="close" class="icon closeButton" data-modal-id="addTaskModal">
         </div>
-        <form action="#">
+        <form action="#" autocomplete="off">
             <div>
                 <label for="taskName">Task Name</label>
-                <input type="text">
+                <input type="text" id="taskName" name="taskName">
             </div>
             <div>
                 <label for="taskDescription">Task Description</label>
                 <textarea name="taskDescription" id="taskDescription" ></textarea>
             </div>
             <div>
-                <label for="">Labels</label>
+                <label for="labelSelectionContainer">Labels</label>
                 <div id="labelSelectionContainer"></div>
             </div>
             <div class="confirmButton">
-                <button>Confirm</button>
+                <button id="addTaskConfirmButton">Confirm</button>
             </div>
         </form>
     </div>

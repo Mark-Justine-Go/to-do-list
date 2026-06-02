@@ -21,8 +21,24 @@ const Storage = {
     }
 }
 
-const Label = (function(){
+const Task = (function(){
     const add = function(e){
+        const taskName = document.querySelector("#taskName").value;
+        const taskDescription = document.querySelector("#taskDescription").value;
+        const taskDate = document.querySelector("#currentDate").textContent;
+        const taskLabels = Array.from(
+            document.querySelectorAll("input[name='label']:checked")
+        ).map(checkbox => checkbox.value);
+
+        const data = {name: taskName, description: taskDescription, labels: taskLabels, date: taskDate};
+        Storage.set("tasks", data);
+    }   
+
+    return {add}
+})()
+
+const Label = (function(){
+    const add = function(){
         const labelName = document.querySelector("#labelName").value;
         const labelColor = document.querySelector("#labelColor").value;
         const data = {name: labelName, color: labelColor};
@@ -41,4 +57,4 @@ const Label = (function(){
     return {add, remove}
 })()
 
-export {Label, Storage}
+export {Label,Task,Storage}

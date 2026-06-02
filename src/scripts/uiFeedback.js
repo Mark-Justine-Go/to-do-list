@@ -1,4 +1,5 @@
 import { Storage, Label } from "./dbFunctions.js";
+import {format, startOfToday} from "date-fns";
 import deleteIcon from "../images/delete.svg";
 
 function removeID(identifier){
@@ -7,7 +8,7 @@ function removeID(identifier){
     element.removeAttribute("id");
 }
 
-function createLabel(label){
+function createLabel(label,hasRemove=true){
     const div = document.createElement("div");
     const indicator = document.createElement("div");
     const labelName = document.createElement("p");
@@ -25,9 +26,46 @@ function createLabel(label){
 
     div.appendChild(indicator);
     div.appendChild(labelName);
-    div.appendChild(deleteButton);
+    if(hasRemove)div.appendChild(deleteButton);
 
     return div;
+}
+
+function createLabelCheckbox(label){
+    const div = document.createElement("div");
+    const checkbox = document.createElement("input");
+    const labelName = document.createElement("p");
+    const indicator = document.createElement("div");
+
+    labelName.textContent = `${label.name}`;
+
+    indicator.style.backgroundColor = `${label.color}`;
+    indicator.classList.add("indicator");
+
+    checkbox.type = "checkbox";
+    checkbox.setAttribute("id", label.name);
+    checkbox.setAttribute("name", "label");
+    checkbox.setAttribute("value", label.name);
+
+    div.append(checkbox);
+    div.append(indicator);
+    div.append(labelName);
+
+    return div
+}
+
+function createTask(task){
+    const div = document.createElement("div");
+    const name = document.createElement("p");
+    const description = document.createElement("p");
+
+    div.classList.add("task");
+
+    name.textContent = task.name;
+
+    div.appendChild(name);
+
+    return div
 }
 
 function showModal(identifier){
@@ -42,10 +80,21 @@ function closeModal(e){
 
 function showLabels(){
     const labelMenu = document.querySelector("#labels");
+    const labelSelectionContainer = document.querySelector("#labelSelectionContainer");
 
     const labels = Storage.get("labels");
     labels.forEach(label => {
         labelMenu.appendChild(createLabel(label));
+        labelSelectionContainer.appendChild(createLabelCheckbox(label));
+    });
+}
+
+function showTasks(){
+    const tasksLists = document.querySelector("#tasksList");
+
+    const tasks = Storage.get("tasks");
+    tasks.forEach(task =>{
+        tasksLists.appendChild(createTask(task));
     });
 }
 
@@ -54,4 +103,10 @@ function selectionFeedback(e,attribute,identifier){
     e.currentTarget.setAttribute(attribute, identifier);
 }
 
-export {selectionFeedback, showModal, closeModal, showLabels}
+function updateDate(date){
+    const dateContainer = document.querySelector("#currentDate");
+    const formattedDate = format(startOfToday(), "LLLL dd  yyyy");
+    dateContainer.textContent = formattedDate;
+}
+
+export {selectionFeedback, showModal, closeModal, showLabels, showTasks,updateDate}
