@@ -1,12 +1,23 @@
 const Storage = {
+    isDuplicate(existingData, data){
+        return (existingData.some(obj => obj.name === data.name)) ? true : false
+    },
+
     get(key){
         return JSON.parse(localStorage.getItem(key) || "[]")
     },
 
-    set(key, data){
-        const existingData = Storage.get(key);
-        existingData.push(data)
-        localStorage.setItem(key, JSON.stringify(existingData));
+    set(key, data, clear=false){
+        if(!clear){
+            const existingData = Storage.get(key);
+            if(!this.isDuplicate(existingData,data)) {
+                existingData.push(data);
+            }
+
+            localStorage.setItem(key, JSON.stringify(existingData));
+        }else{
+            localStorage.setItem(key, JSON.stringify(data));
+        }
     }
 }
 
@@ -17,9 +28,17 @@ const Label = (function(){
         const data = {name: labelName, color: labelColor};
 
         Storage.set("labels", data);
+        location.reload();
     }
 
-    return {add}
+    const remove = function(identifier){
+        const currData = Storage.get("labels");
+        const updatedData = currData.filter(label => label.name !== identifier);
+        Storage.set("labels",updatedData,true);
+        location.reload();
+    }
+
+    return {add, remove}
 })()
 
 export {Label, Storage}

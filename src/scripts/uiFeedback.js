@@ -1,4 +1,6 @@
-import { Storage } from "./dbFunctions.js";
+import { Storage, Label } from "./dbFunctions.js";
+import deleteIcon from "../images/delete.svg";
+
 function removeID(identifier){
     const element = document.querySelector(`#${identifier}`);
     if(element === null) return
@@ -9,14 +11,21 @@ function createLabel(label){
     const div = document.createElement("div");
     const indicator = document.createElement("div");
     const labelName = document.createElement("p");
+    const deleteButton = document.createElement("img");
 
     labelName.textContent = `${label.name}`;
 
     indicator.style.backgroundColor = `${label.color}`;
     indicator.classList.add("indicator");
 
+    deleteButton.classList.add("icon");
+    deleteButton.classList.add("deleteLabel");
+    deleteButton.src = deleteIcon;
+    deleteButton.onclick = () => {Label.remove(label.name)};
+
     div.appendChild(indicator);
     div.appendChild(labelName);
+    div.appendChild(deleteButton);
 
     return div;
 }
