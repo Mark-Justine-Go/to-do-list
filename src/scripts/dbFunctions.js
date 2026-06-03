@@ -22,7 +22,7 @@ const Storage = {
 }
 
 const Task = (function(){
-    const add = function(e){
+    const add = function(){
         const taskName = document.querySelector("#taskName").value;
         const taskDescription = document.querySelector("#taskDescription").value;
         const taskDate = document.querySelector("#currentDate").textContent;
@@ -30,11 +30,27 @@ const Task = (function(){
             document.querySelectorAll("input[name='label']:checked")
         ).map(checkbox => checkbox.value);
 
-        const data = {name: taskName, description: taskDescription, labels: taskLabels, date: taskDate};
+        const data = {status: "not done",name: taskName, description: taskDescription, labels: taskLabels, date: taskDate};
         Storage.set("tasks", data);
-    }   
+    } 
+    
+    const changeStatus = function(e){
+        const taskName = e.target.value;
+        const isChecked = e.target.checked;
+        const currTask = Storage.get("tasks").find(task => task.name = taskName);
 
-    return {add}
+        if(isChecked){
+            currTask.status = "done";
+        }else{
+            currTask.status = "not done";
+        }
+
+        const updatedTasks = Storage.get("tasks").map(task => task.name === taskName ? currTask : task);
+        Storage.set("tasks", updatedTasks, true);
+        location.reload();
+    }
+
+    return {add, changeStatus}
 })()
 
 const Label = (function(){

@@ -1,6 +1,7 @@
-import { Storage, Label } from "./dbFunctions.js";
+import { Storage, Label, Task } from "./dbFunctions.js";
 import {format, startOfToday} from "date-fns";
 import deleteIcon from "../images/delete.svg";
+import inspectIcon from "../images/inspect.svg";
 
 function removeID(identifier){
     const element = document.querySelector(`#${identifier}`);
@@ -58,12 +59,29 @@ function createTask(task){
     const div = document.createElement("div");
     const name = document.createElement("p");
     const description = document.createElement("p");
+    const icon = document.createElement("img");
+    const isDone = document.createElement("input");
+    const isChecked = (Storage.get("tasks").find(currTask => currTask.name === task.name)).status === "done" ? true : false;
 
-    div.classList.add("task");
+    isDone.type = "checkbox";
+    isDone.classList.add("status");
+    isDone.setAttribute("id", task.name)
+    isDone.setAttribute("value", task.name);
+    isDone.checked = isChecked;
 
     name.textContent = task.name;
 
+    icon.src = inspectIcon;
+    icon.classList.add("icon");
+    icon.style.marginLeft = "auto";
+    icon.onclick = () => {
+        inspectTask(task);
+    };
+
+    div.classList.add("task");
+    div.appendChild(isDone);
     div.appendChild(name);
+    div.appendChild(icon);
 
     return div
 }
@@ -107,6 +125,36 @@ function updateDate(date){
     const dateContainer = document.querySelector("#currentDate");
     const formattedDate = format(startOfToday(), "LLLL dd  yyyy");
     dateContainer.textContent = formattedDate;
+}
+
+function inspectTask(task){
+    const name = document.querySelector("#insTaskName");
+    const description = document.createElement("p");
+    const descriptionField = document.querySelector("#insTaskDescription");
+    const labelsContainer = document.querySelector("#insTaskLabels");
+
+    name.textContent = task.name;
+    description.textContent = task.description;
+
+    descriptionField.appendChild(description);
+
+    task.labels.forEach(label => {
+        const div = document.createElement("div");
+        const labelName = document.createElement("p");
+        const bgColor = Storage.get("labels").find(currLabel => currLabel.name === label).color;
+        const indicator = document.createElement("div");
+        indicator.style.backgroundColor = `${bgColor}`;
+        indicator.classList.add("indicator");
+        
+        labelName.textContent = label;
+
+        div.appendChild(indicator);
+        div.appendChild(labelName);
+        labelsContainer.appendChild(div);
+    });
+
+    showModal("#inspectTaskModal");
+
 }
 
 export {selectionFeedback, showModal, closeModal, showLabels, showTasks,updateDate}

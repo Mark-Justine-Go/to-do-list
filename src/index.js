@@ -7,13 +7,13 @@ function init(){
     //set listener for menu buttons
     setMultipleListeners(".clickable", "click", selectionFeedback, "id", "selected");
     setMultipleListeners(".closeButton", "click", closeModal);
-    setListener("#addNewTaskButton", "click", (e)=>{showModal("#addTaskModal")});
+    showLabels();
     setListener("#addNewLabelButton", "click", (e)=>{showModal("#addLabelModal")});
     setListener("#addLabelConfirmButton", "click", Label.add);
-    setListener("#addTaskConfirmButton", "click", (e)=>{Task.add(e)});
-
-    showLabels();
     showTasks();
+    setMultipleListeners(".status", "change", Task.changeStatus);
+    setListener("#addNewTaskButton", "click", (e)=>{showModal("#addTaskModal")});
+    setListener("#addTaskConfirmButton", "click", Task.add);
     updateDate();
 }
 

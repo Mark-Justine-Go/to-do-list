@@ -161,7 +161,8 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 #addTaskModal,
-#addLabelModal{
+#addLabelModal,
+#inspectTaskModal{
     position: absolute;
     z-index: 1;
     width: 400px;
@@ -242,4 +243,23 @@ input[type="color"]::-webkit-color-swatch {
     display: flex;
     align-items: center;
     gap: 3px;
+}
+
+#inspectTaskModal{
+    height: 400px;
+}
+
+#inspectTaskModal > #insTaskLabels,
+#inspectTaskModal > #insTaskDescription{
+    display: flex;
+    height: 200px;
+    width: 100%;
+    padding: 5px;
+    overflow: scroll;
+    flex-wrap: wrap;
+}
+
+#insTaskLabels > div{
+    display: flex;
+    gap: 10px;
 }
