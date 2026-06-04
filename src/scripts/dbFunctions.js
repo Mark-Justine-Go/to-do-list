@@ -50,7 +50,14 @@ const Task = (function(){
         location.reload();
     }
 
-    return {add, changeStatus}
+    const remove = function(identifier){
+        const currData = Storage.get("tasks");
+        const updatedData =   currData.filter(task => task.name !== identifier);
+        Storage.set("tasks", updatedData, true);
+        location.reload();
+    }
+
+    return {add, remove, changeStatus}
 })()
 
 const Label = (function(){

@@ -62,6 +62,7 @@ function createTask(task){
     const icon = document.createElement("img");
     const isDone = document.createElement("input");
     const isChecked = (Storage.get("tasks").find(currTask => currTask.name === task.name)).status === "done" ? true : false;
+    const deleteButton = document.createElement("img");
 
     isDone.type = "checkbox";
     isDone.classList.add("status");
@@ -78,10 +79,15 @@ function createTask(task){
         inspectTask(task);
     };
 
+    deleteButton.src = deleteIcon;
+    deleteButton.classList.add("icon");
+    deleteButton.onclick = () => {Task.remove(task.name)};
+
     div.classList.add("task");
     div.appendChild(isDone);
     div.appendChild(name);
     div.appendChild(icon);
+    div.appendChild(deleteButton);
 
     return div
 }
@@ -108,11 +114,14 @@ function showLabels(){
 }
 
 function showTasks(){
-    const tasksLists = document.querySelector("#tasksList");
+    const tasksContainer = document.querySelector("#tasksContainer");
+    tasksContainer.textContent = "";
 
-    const tasks = Storage.get("tasks");
+    const currDate = new Date(document.querySelector("#currentDate").textContent).getTime();
+
+    const tasks = Storage.get("tasks").filter(task => new Date(task.date).getTime() === currDate);
     tasks.forEach(task =>{
-        tasksLists.appendChild(createTask(task));
+        tasksContainer.appendChild(createTask(task));
     });
 }
 
@@ -132,6 +141,10 @@ function inspectTask(task){
     const description = document.createElement("p");
     const descriptionField = document.querySelector("#insTaskDescription");
     const labelsContainer = document.querySelector("#insTaskLabels");
+
+    name.textContent = "";
+    descriptionField.textContent = "";
+    labelsContainer.textContent = "";
 
     name.textContent = task.name;
     description.textContent = task.description;
@@ -154,7 +167,18 @@ function inspectTask(task){
     });
 
     showModal("#inspectTaskModal");
-
 }
 
-export {selectionFeedback, showModal, closeModal, showLabels, showTasks,updateDate}
+function showCalendar(){
+    const calendar = document.querySelector("#calendar");
+    calendar.showPicker();
+}
+
+function changeDate(){
+    const date = format(document.querySelector("#calendar").value, "LLLL dd yyyy");
+    const currDate = document.querySelector("#currentDate");
+    currDate.textContent = date;
+    showTasks();
+}
+
+export {selectionFeedback, showModal, closeModal, showLabels, showTasks,updateDate,showCalendar,changeDate}

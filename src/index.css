@@ -139,12 +139,12 @@ input[type="color"]::-webkit-color-swatch {
     border-radius: 3px;
 }
 
-#tasksContainer{
+#tasksSection{
     padding: 20px;
     width: 100%;
 }
 
-#tasksList{
+#tasksContainer{
     margin-top: 30px;
     display: flex;
     flex-direction: column;
@@ -152,7 +152,13 @@ input[type="color"]::-webkit-color-swatch {
     color: #5d5e5d;
 }
 
-#tasksList > div{
+#addNewTaskButton{
+    display: flex;
+    margin-top: 30px;
+    padding: 10px;
+}
+
+#tasksContainer > div{
     display: flex;
     align-items: center;
     gap: 10px;
@@ -257,9 +263,10 @@ input[type="color"]::-webkit-color-swatch {
     padding: 5px;
     overflow: scroll;
     flex-wrap: wrap;
+    gap: 10px;
 }
 
 #insTaskLabels > div{
     display: flex;
-    gap: 10px;
+    gap: 5px;
 }
